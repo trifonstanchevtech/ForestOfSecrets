@@ -169,7 +169,7 @@ This design allows new features to be added without modifying existing core logi
 **4.** Build via Build → Build Artifacts
 
 **5.** Test with:
-```java -jar ForestOfSecrets.jar```
+```java -jar ForestOfSecrets.jar``` in the windows console.
 
 A ```.bat``` file is provided for easy startup on Windows systems.
 

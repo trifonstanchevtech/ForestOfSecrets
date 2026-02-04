@@ -115,12 +115,14 @@ de.stanchev.forestofsecrets
 
 ## 🖼️ Assets & Credits
 
-- **Treasure chest image (`schatztruhe.png`)**  
-  Generated using an AI image generation tool.  
-  Included for use within this project according to the tool’s terms.
+- Game icons and images (e.g. treasure chest icon) were created using AI tools.
+  The author holds the usage rights for these assets.
 
-- **Board rendering system**  
-  Originally provided as a learning utility and used with permission.
+- The `board` rendering system is used with permission from its author
+  and is included for educational purposes.
+
+- All game logic, structure, and original code were developed by
+  Trifon Stanchev.
 
 ---
 
