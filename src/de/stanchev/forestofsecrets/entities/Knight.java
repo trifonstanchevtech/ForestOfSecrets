@@ -6,16 +6,21 @@ import de.stanchev.forestofsecrets.model.GameObject;
 import de.stanchev.forestofsecrets.model.Position;
 
 /**
- * Spielfigur (Ritter).
- * Der Ritter bewegt sich auf dem Raster, verbraucht Energie und kann Gegenstände finden.
- * Wenn er das Schwert findet, kann er später den Drachen besiegen.
+ * Spielfigur des Spiels (Ritter).
+ *
+ * Der Ritter bewegt sich auf dem Spielfeldraster, verbraucht dabei Energie
+ * und kann verschiedene Gegenstände finden.
+ *
+ * Findet er das Schwert, ist er in der Lage,
+ * den Drachen zu besiegen.
  */
 public class Knight extends GameObject {
-    private final String name;
-    private final int alter;
-    private int energie;
 
-    private boolean hasSword;
+    private final String name;     // Name des Ritters
+    private final int alter;       // Alter des Ritters
+    private int energie;           // Aktuelle Energie
+
+    private boolean hasSword;      // Status: besitzt der Ritter ein Schwert?
 
     public Knight(String name, int alter, Position ort) {
         super(ort);
@@ -25,7 +30,7 @@ public class Knight extends GameObject {
         this.hasSword = false;
     }
 
-    // Getter-Methoden
+    // Getter
     public String getName() {
         return name;
     }
@@ -46,7 +51,7 @@ public class Knight extends GameObject {
         return ort;
     }
 
-    // Setter-Methoden
+    // Setter
     public void setEnergie(int energie) {
         this.energie = energie;
     }
@@ -60,13 +65,16 @@ public class Knight extends GameObject {
     }
 
     /**
-     * Bewegt den Ritter um die angegebene Verschiebung und reduziert dabei die Energie.
-     * Bewegung findet nur statt, wenn genug Energie vorhanden ist.
+     * Bewegt den Ritter um die angegebene Verschiebung
+     * und reduziert dabei die Energie.
+     *
+     * Die Bewegung findet nur statt,
+     * wenn ausreichend Energie vorhanden ist.
      */
     public void move(Position verschiebung) {
         int verbrauch = verschiebung.calcEnergieReduction();
         if (energie < verbrauch) {
-            return;  // Keine Bewegung bei unzureichender Energie
+            return;
         }
 
         energie -= verbrauch;
@@ -78,33 +86,3 @@ public class Knight extends GameObject {
         board.draw("Knight", ort.getX(), ort.getY());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

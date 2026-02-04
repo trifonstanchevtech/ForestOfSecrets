@@ -6,12 +6,14 @@ import de.stanchev.forestofsecrets.model.Position;
 import de.stanchev.forestofsecrets.model.Treasure;
 
 /**
- * Magischer Runentrank (lila mit brauner Rune).
- * Funktioniert wie ein Heiltrank:
- * - Setzt die Energie des Ritters auf 1500
- * - Verschwindet nach dem Einsammeln
+ * Repräsentiert einen magischen Runentrank.
  *
- * Die eigentliche Spiellogik liegt in _010_0_FoS.
+ * Der Runentrank ist eine sichtbare Energiequelle auf dem Spielfeld.
+ * Wird er vom Ritter gefunden, stellt er dessen Energie vollständig wieder her.
+ *
+ * Die eigentliche Spiel- und Interaktionslogik
+ * (Energie auffüllen und Objekt entfernen)
+ * wird zentral in der Klasse {@link de.stanchev.forestofsecrets.core.Game} verarbeitet.
  */
 public class RunePotion extends Treasure {
 

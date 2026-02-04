@@ -1,25 +1,19 @@
 package board;
 
 /**
- * Title:
- * Description:	Exception to handle unknown elements on the board.
- * 
- * Copyright:	Copyright (c) 2025
- * Company:		Medert-IT
- * Author:		Christine Medert
- * Version:		2.0
+ * Exception, die ausgelöst wird, wenn ein unbekanntes
+ * grafisches Element auf dem Board gezeichnet werden soll.
+ *
+ * Wird geworfen, wenn z. B. kein passender Drawable-Key
+ * im Board registriert ist.
  */
+public class UnknownElementException extends Exception {
 
-@SuppressWarnings("serial")
-public class UnknownElementException extends Exception{
-
-    // Default-Konstruktor
     public UnknownElementException() {
         super();
     }
 
-    // Konstruktor mit Fehlertext
-    public UnknownElementException(String text) {
-        super(text != null ? text : "");
+    public UnknownElementException(String message) {
+        super(message);
     }
 }

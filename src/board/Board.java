@@ -7,11 +7,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2026
- * @author:		 Trifon Stanchev
- * @version:	 1.0
+ * Rendering-Komponente für das Spielfeld.
+ *
+ * <p>Diese Klasse speichert Zeichenbefehle (Key + Position) und rendert sie
+ * im {@link #paint(Graphics)}-Durchlauf. Die konkrete Zeichenlogik wird über
+ * eine Map registriert: {@code drawables} (Key → Zeichenmethode).</p>
+ *
+ * <h3>Verwendung</h3>
+ * <ul>
+ *   <li>{@link #draw(String, int, int)} registriert ein Element zur Anzeige.</li>
+ *   <li>{@link #wipe()} entfernt alle registrierten Elemente und leert das Board.</li>
+ * </ul>
+ *
+ * <h3>Keys (Zeichen-IDs)</h3>
+ * <p>Die folgenden Keys sind registriert (Auszug):</p>
+ * <ul>
+ *   <li>Basis: {@code "Grid"}, {@code "Tree"}</li>
+ *   <li>Spiel: {@code "Knight"}, {@code "Dragon"}, {@code "Sword"}, {@code "Chest"}</li>
+ *   <li>Energie: {@code "RedPotion"}, {@code "RunePotion"}, {@code "LifeStone"}</li>
+ *   <li>Funde: {@code "Crystal"}, {@code "GoldPouch"}, {@code "Medallion"}, {@code "Helmet"}, {@code "Relic"}, {@code "Scroll"}</li>
+ * </ul>
+ *
+ * <p>Wird ein unbekannter Key übergeben, wird eine {@link board.UnknownElementException} geworfen.</p>
+ *
+ * @author Trifon Stanchev
+ * @version 1.0
  */
 
 @SuppressWarnings("serial")
@@ -29,18 +49,25 @@ public class Board extends Panel {
 		initializeDrawables();
 	}
 
+	// Registrierte Zeichen-Keys (String -> Zeichenmethode)
 	private void initializeDrawables() {
 		drawables.put("Grid", this::drawGrid);
-		drawables.put("Sword", this::drawSword);
 		drawables.put("Tree", this::drawTree);
 
-		// neue Spielfiguren
+		// Entities
+		drawables.put("Knight", this::drawKnight);
+		drawables.put("Dragon", this::drawDragon);
+
+		// Special items
+		drawables.put("Sword", this::drawSword);
+		drawables.put("Chest", this::drawChest);
+
+		// Energy items
 		drawables.put("RedPotion", this::drawRedPotion);
 		drawables.put("RunePotion", this::drawRunePotion);
 		drawables.put("LifeStone", this::drawLifeStone);
-		drawables.put("Dragon", this::drawDragon);
-		drawables.put("Chest", this::drawChest);
-		drawables.put("Knight", this::drawKnight);
+
+		// Loot
 		drawables.put("Crystal", this::drawCrystal);
 		drawables.put("GoldPouch", this::drawGoldPouch);
 		drawables.put("Medallion", this::drawMedallion);
@@ -49,6 +76,14 @@ public class Board extends Panel {
 		drawables.put("Scroll", this::drawScroll);
 	}
 
+	/**
+	 * Registriert ein Element zur späteren Darstellung.
+	 *
+	 * @param figure Zeichen-Key (muss in {@code drawables} registriert sein)
+	 * @param xpos   X-Position in Pixeln
+	 * @param ypos   Y-Position in Pixeln
+	 * @throws UnknownElementException wenn {@code figure} unbekannt ist
+	 */
 	public void draw(String figure, int xpos, int ypos) throws UnknownElementException {
 		if (!drawables.containsKey(figure)) {
 			throw new UnknownElementException("Unknown element: " + figure);
@@ -69,17 +104,14 @@ public class Board extends Panel {
 		}
 	}
 
+	/** Entfernt alle registrierten Zeichenbefehle und aktualisiert das Board. */
 	public void wipe() {
 		elements.clear();
 		positions.clear();
 		repaint();
 	}
 
-	/**
-	 *
-	 * @param g
-	 * @param position
-	 */
+	/** Zeichnet das Raster (15×15 Zellen bei 30px Kachelgröße). */
 	private void drawGrid(Graphics g, Point position) {
 		int j = 0;
 		g.setColor(new Color(150, 150, 150));
@@ -90,11 +122,6 @@ public class Board extends Panel {
 		}
 	}
 
-	/**
-	 *
-	 * @param g
-	 * @param position
-	 */
 	private void drawTree(Graphics g, Point position) {
 		int[] xPoints = {15, 18, 16, 22, 16, 24, 16, 26, 16, 16, 14, 14, 4, 14, 6, 14, 8, 14, 11};
 		int[] yPoints = {4, 7, 7, 12, 12, 17, 17, 22, 22, 25, 25, 22, 22, 17, 17, 12, 12, 7, 7};
@@ -107,11 +134,6 @@ public class Board extends Panel {
 		g.fillPolygon(xPoints, yPoints, nPoints);
 	}
 
-	/**
-	 *
-	 * @param g
-	 * @param position
-	 */
 	// Spielfigur: Schwert
 	private void drawSword(Graphics g, Point position) {
 		// Farben
@@ -280,7 +302,6 @@ public class Board extends Panel {
 		g.drawLine(position.x + 19, position.y + 17, position.x + 22, position.y + 18);
 	}
 
-
 	// Spielfigur: RedPotion (rot)
 	private void drawRedPotion(Graphics g, Point position) {
 		// Glas
@@ -345,7 +366,6 @@ public class Board extends Panel {
 		g.setColor(new Color(255, 240, 240));
 		g.fillOval(position.x + 9, position.y + 10, 3, 3);
 	}
-
 
 	// Spielfigur: Kristall
 	private void drawCrystal(Graphics g, Point position) {

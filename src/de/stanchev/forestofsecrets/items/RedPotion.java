@@ -6,9 +6,14 @@ import de.stanchev.forestofsecrets.model.Position;
 import de.stanchev.forestofsecrets.model.Treasure;
 
 /**
- * Roter Heiltrank.
- * Wird sichtbar auf dem Spielfeld gezeichnet und dient als Energiequelle.
- * Die Logik (Energie auf 1500 setzen & entfernen) passiert in _010_0_FoS.
+ * Repräsentiert einen roten Heiltrank.
+ *
+ * Der rote Trank ist eine sichtbare Energiequelle auf dem Spielfeld.
+ * Wird er vom Ritter gefunden, stellt er dessen Energie vollständig wieder her.
+ *
+ * Die eigentliche Spiel- und Interaktionslogik
+ * (Energie auffüllen und Objekt entfernen)
+ * wird zentral in der Klasse {@link de.stanchev.forestofsecrets.core.Game} verarbeitet.
  */
 public class RedPotion extends Treasure {
 

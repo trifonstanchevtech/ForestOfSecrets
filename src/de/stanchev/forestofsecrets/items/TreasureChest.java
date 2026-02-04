@@ -5,7 +5,9 @@ import de.stanchev.forestofsecrets.model.Treasure;
 
 /**
  * Repräsentiert die Schatztruhe.
- * Wird die Schatztruhe vom Ritter gefunden, gewinnt der Spieler das Spiel.
+ *
+ * Wird die Schatztruhe vom Ritter gefunden,
+ * gewinnt der Spieler das Spiel.
  */
 public class TreasureChest extends Treasure {
 
@@ -14,7 +16,7 @@ public class TreasureChest extends Treasure {
     }
 
     /**
-     * Die Schatztruhe ist das Gewinnobjekt des Spiels.
+     * Kennzeichnet dieses Objekt als Gewinnobjekt.
      */
     @Override
     public boolean isWinningTreasure() {

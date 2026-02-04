@@ -6,12 +6,14 @@ import de.stanchev.forestofsecrets.model.Position;
 import de.stanchev.forestofsecrets.model.Treasure;
 
 /**
- * LifeStone (grüner Lebensstein).
- * Dient als besondere Energiequelle:
- * - Setzt die Energie des Ritters auf 1500
- * - Verschwindet nach dem Einsammeln
+ * Repräsentiert einen magischen Lebensstein (LifeStone).
  *
- * Die Logik wird zentral in _010_0_FoS verarbeitet.
+ * Der LifeStone ist eine sichtbare Energiequelle auf dem Spielfeld.
+ * Wird er vom Ritter gefunden, stellt er dessen Energie vollständig wieder her.
+ *
+ * Die eigentliche Spiel- und Interaktionslogik
+ * (Energie auffüllen und Objekt entfernen)
+ * wird zentral in der Klasse {@link de.stanchev.forestofsecrets.core.Game} verarbeitet.
  */
 public class LifeStone extends Treasure {
 
@@ -24,4 +26,3 @@ public class LifeStone extends Treasure {
         board.draw("LifeStone", ort.getX(), ort.getY());
     }
 }
-

@@ -4,51 +4,54 @@ import board.BoardUI;
 import board.UnknownElementException;
 
 /**
- * Abstrakte Basisklasse für alle darstellbaren Elemente im Spiel.
- * Jedes Element besitzt eine Position und kann auf dem Board gezeichnet werden.
+ * Abstrakte Basisklasse für alle darstellbaren Objekte im Spiel.
+ * Jedes GameObject besitzt eine Position im Spielfeld
+ * und kann auf dem Board gezeichnet werden.
  *
  * @author Trifon Stanchev
  * @version 1.0
  */
-
 public abstract class GameObject {
-    protected Position ort;   // protected = Vererbungshierarchie
 
-    // Konstruktor-Methoden
-    // Default-Konstruktor
+    // Position des Objekts im Spielfeld
+    protected Position ort;
+
+    // Standardposition (0,0)
     public GameObject() {
         this.ort = new Position(0, 0);
     }
 
-    // Konstruktor, der nur die Position erzeugt
+    // Objekt mit Startposition
     public GameObject(Position ort) {
         this.ort = ort;
     }
 
-    // protected Getter-/Setter-Methoden (gekapselt nur für Subklassen)
+    // Zugriff auf die Position (nur für Unterklassen)
     protected Position getOrt() {
         return ort;
     }
+
     protected void setOrt(Position ort) {
         this.ort = ort;
     }
 
     /**
-     * Prüft Kollision mit anderem GameObject für Controller-Klassen (Game.core).
+     * Prüft, ob sich dieses Objekt an derselben Position
+     * wie ein anderes GameObject befindet.
      *
-     * Löst protected-Zugriffsproblem: public API -> intern protected getOrt().
+     * Wird für Kollisionen im Spiel verwendet.
      *
-     * Beispiel:
-     * if (myKnight.isAtSameLocation(gameObject)) { ... }
-     *
-     * @param other das zu prüfende GameObject
-     * @return true bei Kollision
+     * @param other anderes Objekt im Spielfeld
+     * @return true, wenn beide Objekte dieselbe Position haben
      */
     public boolean isAtSameLocation(GameObject other) {
         if (other == null) return false;
         return this.getOrt().equals(other.getOrt());
     }
 
-    // Abstrakte draw-Methode (muss implementiert werden)
+    /**
+     * Zeichnet das Objekt auf dem Spielfeld.
+     * Muss von jeder Unterklasse implementiert werden.
+     */
     public abstract void draw(BoardUI board) throws UnknownElementException;
 }

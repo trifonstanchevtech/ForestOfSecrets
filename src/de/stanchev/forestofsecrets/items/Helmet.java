@@ -4,11 +4,17 @@ import de.stanchev.forestofsecrets.model.Position;
 import de.stanchev.forestofsecrets.model.Treasure;
 
 /**
- * Helmet (Ritterhelm).
+ * Repräsentiert einen Ritterhelm (Helmet).
  *
- * Symbolisches Ausrüstungsstück ohne spielmechanische Wirkung.
+ * Der Helm ist ein symbolisches Ausrüstungsobjekt ohne Einfluss
+ * auf Energie, Kampf oder Spielverlauf.
+ * Beim Finden wird der Gegenstand gemeldet
+ * und anschließend vom Spielfeld entfernt.
+ *
+ * Er dient der Atmosphäre und dem Rollenspiel-Aspekt des Spiels.
  */
 public class Helmet extends Treasure {
+
     public Helmet(Position ort) {
         super(ort, "Helmet");
     }

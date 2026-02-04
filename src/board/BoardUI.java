@@ -4,19 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Title:
- * Description:	The Board class is used to display and manage a graphical game board.
- * 				Use 'setVisible(true)' to display the board.
- * 				Use 'setVisible(false)' to hide the board.
- * 				Use 'dispose()' to release resources allocated by the windowing system.
- * 				Use 'draw' to draw figures on the board.
- * 				Use 'wipe' to clear the board.
- * 
- * Copyright:	Copyright (c) 2026
- * Author:		Trifon Stanchev
- * Version:		1.0
+ * Fenster-Komponente für die grafische Darstellung des Spielfelds.
+ *
+ * <p>{@code BoardUI} kapselt ein {@link Board}-Objekt und stellt ein
+ * Swing-Fenster bereit, in dem das Spielfeld angezeigt wird.</p>
+ *
+ * <h3>Aufgaben</h3>
+ * <ul>
+ *   <li>Erzeugt und verwaltet das Spielfenster (JFrame)</li>
+ *   <li>Delegiert Zeichenbefehle an {@link Board}</li>
+ *   <li>Stellt Methoden zum Neuzeichnen ({@link #draw}) und Zurücksetzen ({@link #wipe}) bereit</li>
+ * </ul>
+ *
+ * <p>Die Klasse enthält <strong>keine Spiellogik</strong> und wird ausschließlich
+ * von der Spiellogik (z. B. {@code Game}) verwendet.</p>
+ *
+ * @author Trifon Stanchev
+ * @version 1.0
  */
-
 @SuppressWarnings("serial")
 public class BoardUI extends JFrame{
 
@@ -47,30 +52,25 @@ public class BoardUI extends JFrame{
 	}
 
 	/**
-	 * The 'wipe' method clears all previously drawn figures from the board.
-	 * Use this method to reset the board to a blank state.
+	 * Entfernt alle aktuell dargestellten Elemente vom Spielfeld.
+	 * Wird z. B. beim Neustart oder Neuzeichnen verwendet.
 	 */
 	public void wipe() {
 		getMyBoard().wipe();
 	}
 
 	/**
-	 * The 'draw' method displays a graphical element on the board.
-	 * Supported figure types: 'Dragon', 'Knight', 'Crystal', 'GoldPouch', 'Helmet',
-	 * 'LifeStone', 'Medallion', 'RedPotion', 'Relic', 'Sword', 'RunePotion', 'Scroll',
-	 * 'TreasureChest', 'Tree', 'Square' (non-filled red square), and 'Grid'
-	 * (draws a 15x15 cell grid).
+	 * Zeichnet ein grafisches Element auf dem Spielfeld.
 	 *
-	 * @param figure Type of figure to draw
-	 * @param xpos   Horizontal position (0–420)
-	 * @param ypos   Vertical position (0–420)
-	 * @throws UnknownElementException if the figure type is invalid
+	 * <p>Der {@code figure}-Parameter muss einem in {@link Board}
+	 * registrierten Zeichen-Key entsprechen.</p>
+	 *
+	 * @param figure Zeichen-Key (z. B. "Knight", "Dragon", "Sword", "Grid")
+	 * @param xpos   X-Position in Pixeln (0–420)
+	 * @param ypos   Y-Position in Pixeln (0–420)
+	 * @throws UnknownElementException wenn der Zeichen-Key unbekannt ist
 	 */
 	public void draw(String figure, int xpos, int ypos) throws UnknownElementException {
-		//        if (xpos < 0 || xpos > 460 || ypos < 0 || ypos > 460) {
-		//            throw new IllegalArgumentException("Position (xpos, ypos) must be in the range 0 to 420.");
-		//        }
-
 		getMyBoard().draw(figure, xpos, ypos);
 		getMyBoard().repaint();
 	}
