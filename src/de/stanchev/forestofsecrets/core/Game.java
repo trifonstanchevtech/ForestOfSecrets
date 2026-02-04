@@ -1,7 +1,13 @@
-package _010_;
+package de.stanchev.forestofsecrets.core;
 
 import board.BoardUI;
 import board.UnknownElementException;
+import de.stanchev.forestofsecrets.entities.Dragon;
+import de.stanchev.forestofsecrets.entities.Knight;
+import de.stanchev.forestofsecrets.items.*;
+import de.stanchev.forestofsecrets.model.GameObject;
+import de.stanchev.forestofsecrets.model.Position;
+import de.stanchev.forestofsecrets.model.Treasure;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -100,7 +106,7 @@ public class Game {
     // Kollisionen
     private void processElements(StringBuilder nachricht) {
         for (GameObject gameObject : gameObjects) {
-            if (gameObject != null && gameObject != myKnight && myKnight.getOrt().equals(gameObject.getOrt())) {
+            if (gameObject != null && gameObject != myKnight && myKnight.isAtSameLocation(gameObject)) {
                 handleElementInteraction(gameObject, nachricht);
                 break;
             }
@@ -118,6 +124,7 @@ public class Game {
         if (treasure instanceof Sword) {
             myKnight.setHasSword(true);
             nachricht.append("Du hast ein Schwert entdeckt. Es kann dir auf deinem Weg nützlich sein.");
+            removeElement(gameObject);
             return;
         }
 

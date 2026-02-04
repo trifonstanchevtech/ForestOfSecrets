@@ -1,4 +1,4 @@
-package _010_;
+package de.stanchev.forestofsecrets.app;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,9 +75,9 @@ public class GameWindow extends JFrame {
         title.setForeground(new Color(76, 7, 7, 252));
         title.setFont(new Font("Arial", Font.BOLD, 22));
 
-        // Schloss-Bild laden (liegt im gleichen Package wie _09_0_ConsoleUI)
+        // Schatztruhe-Bild laden
         try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("Schloss.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/images/schatztruhe.png"));
             title.setIcon(icon);
             title.setIconTextGap(12); // Abstand zwischen Icon und Text
         } catch (Exception ignored) {

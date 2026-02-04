@@ -1,4 +1,4 @@
-package _010_;
+package de.stanchev.forestofsecrets.model;
 
 /**
  * Repräsentiert eine zweidimensionale Position im Spielfeldraster.

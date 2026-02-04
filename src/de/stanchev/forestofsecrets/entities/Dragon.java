@@ -1,4 +1,7 @@
-package _010_;
+package de.stanchev.forestofsecrets.entities;
+
+import de.stanchev.forestofsecrets.model.Position;
+import de.stanchev.forestofsecrets.model.Treasure;
 
 /**
  * Repräsentiert den Drachen im Spiel.

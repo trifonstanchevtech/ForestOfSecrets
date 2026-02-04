@@ -1,4 +1,4 @@
-package _010_;
+package de.stanchev.forestofsecrets.model;
 
 import board.BoardUI;
 import board.UnknownElementException;
@@ -31,6 +31,22 @@ public abstract class GameObject {
     }
     protected void setOrt(Position ort) {
         this.ort = ort;
+    }
+
+    /**
+     * Prüft Kollision mit anderem GameObject für Controller-Klassen (Game.core).
+     *
+     * Löst protected-Zugriffsproblem: public API -> intern protected getOrt().
+     *
+     * Beispiel:
+     * if (myKnight.isAtSameLocation(gameObject)) { ... }
+     *
+     * @param other das zu prüfende GameObject
+     * @return true bei Kollision
+     */
+    public boolean isAtSameLocation(GameObject other) {
+        if (other == null) return false;
+        return this.getOrt().equals(other.getOrt());
     }
 
     // Abstrakte draw-Methode (muss implementiert werden)

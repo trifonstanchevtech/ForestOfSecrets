@@ -1,4 +1,8 @@
-package _010_;
+package de.stanchev.forestofsecrets.app;
+
+import de.stanchev.forestofsecrets.entities.Knight;
+import de.stanchev.forestofsecrets.core.Game;
+import de.stanchev.forestofsecrets.model.Position;
 
 /**
  * Use-Case-Controller für das Spiel.

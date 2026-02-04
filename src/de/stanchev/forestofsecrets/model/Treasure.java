@@ -1,4 +1,4 @@
-package _010_;
+package de.stanchev.forestofsecrets.model;
 
 import board.BoardUI;
 import board.UnknownElementException;

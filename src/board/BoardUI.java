@@ -56,9 +56,9 @@ public class BoardUI extends JFrame{
 
 	/**
 	 * The 'draw' method displays a graphical element on the board.
-	 * Supported figure types: 'Apple', 'Bow', 'Castle', 'Chain', 'Coin', 
-	 * 'Crown', 'Diamond', 'Heart', 'Ring', 'Sword', 'Car', 'GasStation', 
-	 * 'Dog', 'Bone', 'Tree', 'Square' (non-filled red square), and 'Grid' 
+	 * Supported figure types: 'Dragon', 'Knight', 'Crystal', 'GoldPouch', 'Helmet',
+	 * 'LifeStone', 'Medallion', 'RedPotion', 'Relic', 'Sword', 'RunePotion', 'Scroll',
+	 * 'TreasureChest', 'Tree', 'Square' (non-filled red square), and 'Grid'
 	 * (draws a 15x15 cell grid).
 	 *
 	 * @param figure Type of figure to draw

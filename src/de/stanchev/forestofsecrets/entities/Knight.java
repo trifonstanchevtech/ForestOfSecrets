@@ -1,7 +1,9 @@
-package _010_;
+package de.stanchev.forestofsecrets.entities;
 
 import board.BoardUI;
 import board.UnknownElementException;
+import de.stanchev.forestofsecrets.model.GameObject;
+import de.stanchev.forestofsecrets.model.Position;
 
 /**
  * Spielfigur (Ritter).
