@@ -1,4 +1,8 @@
-#  💎 Forest of Secrets
+#  🌲 Forest of Secrets
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Status](https://img.shields.io/badge/Status-Playable-green)
+![Release](https://img.shields.io/badge/Release-v1.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## ▶ Play the Game
 
