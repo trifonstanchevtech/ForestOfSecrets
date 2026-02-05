@@ -1,5 +1,12 @@
 #  💎 Forest of Secrets
 
+## ▶ Play the Game
+
+Download the latest version here:
+https://github.com/trifonstanchevtech/ForestOfSecrets/releases/latest
+
+---
+
 **Forest of Secrets** is a small Java-based 2D grid game where a knight explores a mysterious forest, collects magical items, and faces a dangerous dragon in search of a hidden treasure.
 
 The project focuses on clean object-oriented design, separation of concerns, and a custom rendering system built with Java Swing.
