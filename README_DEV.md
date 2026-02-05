@@ -1,22 +1,29 @@
 # Forest of Secrets – Developer Documentation 🛠️
 
-This document describes the **internal architecture, package structure, and extension points**
-of the Java game **Forest of Secrets**.
+This document explains the **technical structure and design decisions**
+of the Java game ***Forest of Secrets***.
 
-It is intended for **developers, reviewers, and technical recruiters** who want to
-understand how the game is built and how it can be extended.
+It is intended for developers, reviewers, and technical recruiters who want to
+understand how the application works internally and how it can be extended.
 
 ---
 
 ## 🎮 Project Overview
 
-**Forest of Secrets** is a Java-based 2D grid game built with **Swing** and a reusable
+**Forest of Secrets** is a small Java-based 2D grid game built with **Swing** and a reusable
 board-rendering system.
 
-- The player controls a **Knight**
-- The goal is to **find the Treasure Chest** or **defeat the Dragon**
-- Energy management and item interactions are core mechanics
-- The game is fully event-driven and grid-based (30×30 tiles)
+The player controls a knight exploring a forest while managing energy, collecting items and interacting with special objects.
+
+The project focuses on:
+
+- clean object-oriented structure
+
+- separation between UI and logic
+
+- extendable item system
+
+- simple but maintainable architecture
 
 ---
 
@@ -27,28 +34,37 @@ The application starts in:
 ```
 de.stanchev.forestofsecrets.app.GameController
 ```
-This class:
+
+Responsibilities of this class:
 
 - contains the ```main(String[] args)``` method
-- initializes the UI and game core
-- connects ```GameWindow``` (UI) with ```Game``` (logic)
 
+- creates the main window (```GameWindow```)
+
+- initializes the game (```Game```)
+
+- connects user actions with the game logic
+
+The controller does not contain game rules — it only coordinates components.
 
 ---
 
 ## 🧠 Architecture Overview
 
-The game follows a clean separation of concerns:
+The project loosely follows the MVC principle:
 
-- Core logic is independent of rendering
+| Layer      | Responsibility                        |
+|------------|---------------------------------------|
+| UI (View)  | Displays data and receives user input |
+| Controller | Forwards actions and updates UI       |
+| Core Logic | Processes rules and game state        |
 
-- Game objects share common abstractions
 
-- Rendering is handled by a reusable board system
+Important design goal:
 
-- UI delegates all logic to the game core
+- The game logic must work independently from the graphical representation.
 
-This makes the project easy to understand, maintain, and extend.
+This allows replacing the UI without rewriting the game rules.
 
 ---
 
@@ -56,21 +72,20 @@ This makes the project easy to understand, maintain, and extend.
 de.stanchev.forestofsecrets
 │
 ├── app
-│   ├──GameController        → Application entry point (main)
-│   └── GameWindow           → Swing-based user interface
-│ 
+│   ├── GameController   → Application control & input handling
+│   └── GameWindow       → Swing GUI
 │
 ├── core
-│   └── Game                  → Central game logic (movement, rules, collisions)
+│   └── Game             → Main game logic (movement, collisions, rules)
 │
 ├── model
-│   ├── Position              → Grid coordinates (x/y)
-│   ├── GameObject            → Base class for all game objects
-│   └── Treasure              → Base class for collectible items
+│   ├── Position         → Coordinates on the grid
+│   ├── GameObject       → Base class for all world objects
+│   └── Treasure         → Base class for collectible objects
 │
 ├── entities
-│   ├── Knight                → Player character
-│   └── Dragon                → Enemy (win/lose logic)
+│   ├── Knight           → Player character
+│   └── Dragon           → Special enemy object
 │
 ├── items
 │   ├── Sword
@@ -85,127 +100,179 @@ de.stanchev.forestofsecrets
 │   ├── Relic
 │   └── Scroll
 │
-└── board
-    ├── Board                 → Rendering engine
-    ├── BoardUI               → Swing board window
-    └── UnknownElementException
+└── board (provided rendering system)
+├── Board
+├── BoardUI
+└── UnknownElementException
+
 
 ---
 
 ## 🎲 Game Logic Rules
 
-- The Knight moves in steps of 30 pixels on a grid
+### Grid System
 
-- Each movement consumes energy
+- Tile size: 30 × 30 pixels
 
-- Energy can be restored using:
-  - RedPotion 
-  - RunePotion 
-  - LifeStone
+- Playable coordinates: 0 – 420
 
-- Energy items disappear after being used
-
-- The Sword changes the outcome of a Dragon encounter
+- Objects spawn randomly without overlapping
 
 ---
 
-## 🏆 Win Conditions
+### Player (Knight)
 
-- Find the Treasure Chest
+The knight has:
 
-- Defeat the Dragon while carrying the Sword
+- name
 
-## ☠️ Lose Condition
+- age
 
-- Encounter the Dragon without a Sword
+- position
 
-Game end states are handled via JOptionPane dialogs.
+- energy
+
+- sword state
+
+Movement:
+
+- costs energy based on distance
+
+- blocked if energy is insufficient
+
+---
+
+### Interactions
+| Object               | Result                       |
+|----------------------|------------------------------|
+| Energy Items         | restore energy to 1500       |
+| Sword                | enables defeating the dragon |
+| Dragon without sword | defeat                       |
+| Dragon with sword    | victory                      |
+| Treasure Chest       | victory                      |
+| Collectibles         | message only                 |
+
+
+All interactions are handled centrally inside the ```Game``` class.
 
 ---
 
 ## 🖌️ Rendering System
 
-Rendering is handled via the reusable board package:
+The project uses a **string-based rendering registry.**
 
-- Each drawable object is identified by a string key
-(e.g. ```"Sword"```, ```"Knight"```, ```"Tree"```)
+Each drawable element registers a key:
 
-- The Board maps keys to drawX(...) methods
+```"Knight"```
+```"Sword"```
+```"Tree"```
+```"RedPotion"```
+...
 
-- Game objects call:
-```draw(BoardUI board)```
-- The grid and all objects are redrawn after every move
+The ```Board``` maps these keys to drawing methods.
 
-The board uses a 15×15 grid, tile size **30×30**, coordinate range ```0–420```.
+Game objects never draw themselves directly — they only request rendering:
+
+```board.draw("Knight", x, y);```
 
 ---
 
-## ➕ Adding a New Item or Object
+### Why this approach?
 
-To add a new collectible item:
+Advantages:
 
-**1.** Create a new class extending Treasure
+- logic independent from graphics
 
-**2.** Assign a unique draw key (string)
+- new objects require minimal changes
 
-**3.** Add a corresponding drawX(...) method in Board
+- rendering system reusable
 
-**4.** Register it in initializeDrawables()
+---
 
-**5.** Handle its interaction in Game
+## 🔁 Game Loop (Simplified)
 
-This design allows new features to be added without modifying existing core logic.
+**1.** User presses key/button
+
+**2.** Controller calls ```Game.play()```
+
+**3.** Game updates state 
+
+**4.** Board is redrawn 
+
+**5.** UI displays message
+
+---
+
+## ➕ Adding a New Item
+
+To introduce a new item:
+
+**1.** Create class extending ```Treasure``` 
+
+**2.** Give it a unique key name 
+
+**3.** Implement drawing in ```Board``` 
+
+**4.** Register drawable in ```initializeDrawables()```
+
+**5.** Add interaction in ```Game```
+
+No other files need modification.
 
 ---
 
 ## 🧪 Building the Runnable JAR (IntelliJ)
 
-**1.** File → Project Structure → Artifacts
+**1.** File → Project Structure → Artifacts 
 
-**2.** Create JAR → From modules with dependencies
+**2.** Create JAR from modules with dependencies 
 
-**3.** Select GameController as the Main Class
+**3.** Select GameController as Main Class 
 
 **4.** Build via Build → Build Artifacts
 
-**5.** Test with:
-```java -jar ForestOfSecrets.jar``` in the windows console.
+Run with:
 
-A ```.bat``` file is provided for easy startup on Windows systems.
+```java -jar ForestOfSecrets.jar```
+
+A Windows start script is provided for easier usage.
 
 ---
 
 ## 📄 License Notes
 
-- **Source code**: MIT License
+- Source code: MIT License
 
-- **Board package**: used with explicit permission
+- Board package: used with permission
 
-- **Assets** (icons/images): AI-generated, usage rights confirmed
-(see ```README.md``` for details)
-
----
-
-## 🔧 Possible Future Improvements
-
-- Additional enemies and item types
-
-- More complex interactions
-
-- Sound effects
-
-- Save/load system
-
-- Difficulty levels
+- Images: AI-generated assets (usage rights confirmed)
 
 ---
 
-## ✨ Final Notes
+## 🔧 Possible Extensions
 
-This project was designed to be:
+The architecture was prepared for future features:
 
-- easy to read
+- additional enemies
 
-- easy to extend
+- status effects
 
-- suitable for learning and skill evaluation
+- multiple maps
+
+- save/load system
+
+- sound system
+
+---
+
+## ✨ Final Remark
+
+The project intentionally keeps the gameplay simple while emphasizing:
+
+- readability
+
+- separation of responsibilities
+
+- extendability
+
+The goal is to demonstrate structured programming and maintainable design rather than complex mechanics.

@@ -1,8 +1,8 @@
 #  💎 Forest of Secrets
 
-**Forest of Secrets** is a small Java-based grid game where a knight explores a mysterious forest, collects magical items, and faces a dangerous dragon in search of a hidden treasure.
+**Forest of Secrets** is a small Java-based 2D grid game where a knight explores a mysterious forest, collects magical items, and faces a dangerous dragon in search of a hidden treasure.
 
-The game focuses on clean object-oriented design, simple but expressive game logic, and custom 2D rendering using Java Swing.
+The project focuses on clean object-oriented design, separation of concerns, and a custom rendering system built with Java Swing.
 
 ---
 
@@ -12,12 +12,12 @@ You control a **knight** moving across a grid-based forest.
 
 ### Core rules:
 **🧍Knight:**
-- Has energy (starts with 1500).
-- Movement costs energy.
-- Can carry a sword.
+- Starts with 1500 energy.
+- Movement consumes energy.
+- Can obtain/carry a sword.
 
 **🗡️ Sword** 
-Required to gain the ability to defeat the Dragon
+- Required to gain the ability to defeat the Dragon
 
 **🐉 Dragon:**
 - Without sword → instant defeat.
@@ -57,21 +57,22 @@ The game window must be focused for controls to work properly.
 
 ---
 
-## ▶️ How to Run the Game
+## ▶️ Running the Game
+### Option 1: Download & Play (Recommended)
 
-### Option 1: Run the JAR (recommended)
-1. Download the runnable JAR from the **Releases** section
-2. Double-click `Start Forest Of Secrets.bat`  
-   *(or run `java -jar ForestOfSecrets.jar`)*
+1. Download the game from **Releases**
+2. Extract the archive
+3. Double-click **Forest Of Secrets**
+
+(No console window - runs via launcher script)
 
 > **Requires Java 17+**
 
 ---
 
-### Option 2: Run from source (IntelliJ)
+### Option 2: Run from Source (IntelliJ)
 1. Open the project in IntelliJ IDEA
-2. Run the `Main` class
-3. The game window will open automatically
+2. Run ```de.stanchev.forestofsecrets.app.GameController```
 
 ---
 
@@ -81,7 +82,7 @@ The game window must be focused for controls to work properly.
 - Java Swing
 - Object-Oriented Programming
 - IntelliJ IDEA
-- Custom rendering via a board-based drawing system
+- Custom 2D rendering via a board-based drawing system
 
 ---
 
@@ -106,7 +107,7 @@ de.stanchev.forestofsecrets
 │   └── Dragon
 │
 ├── items
-│   ├── (all collectible and usable items)
+│   └──(all collectible and usable items)
 │
 ├── board (external / allowed dependency)
 └── resources
@@ -115,23 +116,15 @@ de.stanchev.forestofsecrets
 
 ## 🖼️ Assets & Credits
 
-- Game icons and images (e.g. treasure chest icon) were created using AI tools.
-  The author holds the usage rights for these assets.
+- Icons and images: AI-generated (usage rights held by author)
 
-- The `board` rendering system is used with permission from its author
-  and is included for educational purposes.
+- Board rendering package: used with permission
 
-- All game logic, structure, and original code were developed by
-  Trifon Stanchev.
+- Game logic and architecture: created by Trifon Stanchev
 
 ---
 
 ## 📜 License & Assets
 
 This project is licensed under the **MIT License**.  
-See the `LICENSE` file for details.
-
-Parts of board package: used with explicit permission
-
-Images: AI-generated, usage rights confirmed
-
+See `LICENSE` for details.
