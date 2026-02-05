@@ -18,6 +18,3 @@ Thumbs.db
 ### Ignore all jars EXCEPT releases ###
 *.jar
 !release/*.jar
-
-### IntelliJ / Artifacts / Metadata###
-resources/META-INF/
